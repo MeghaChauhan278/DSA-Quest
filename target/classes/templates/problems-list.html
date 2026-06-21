@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{layout :: head('Solved Problems - DSA Quest')}"></head>
+<body>
+    <div th:replace="~{layout :: sidebar}"></div>
+    
+    <main class="main-content">
+        <div class="d-flex justify-content-between align-items-center mb-5">
+            <h1 class="fw-bold mb-0">Solved Problems</h1>
+            <a href="/problems/add" class="btn btn-primary px-4">
+                <i class="bi bi-plus-lg"></i>
+            </a>
+        </div>
+
+        <div class="glass-card">
+            <div class="table-responsive">
+                <table class="custom-table">
+                    <thead>
+                        <tr>
+                            <th>TITLE</th>
+                            <th>DIFFICULTY</th>
+                            <th>TOPIC</th>
+                            <th>PLATFORM</th>
+                            <th>DATE</th>
+                            <th>ACTIONS</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:each="p : ${problems}">
+                            <td class="fw-bold" th:text="${p.title}">Title</td>
+                            <td>
+                                <span class="badge-dsa" 
+                                      th:classappend="${p.difficulty == T(com.dsaquest.entity.Difficulty).Easy ? 'badge-easy' : (p.difficulty == T(com.dsaquest.entity.Difficulty).Hard ? 'badge-hard' : 'badge-medium')}" 
+                                      th:text="${p.difficulty}">Difficulty</span>
+                            </td>
+                            <td th:text="${p.topic}">Topic</td>
+                            <td class="text-secondary" th:text="${p.platform}">Platform</td>
+                            <td class="text-secondary" th:text="${#temporals.format(p.solvedDate, 'MMM dd, yyyy')}">Date</td>
+                            <td>
+                                <a th:href="@{'/problems/delete/' + ${p.id}}" class="text-danger p-2" onclick="return confirm('Archive this record?')">
+                                    <i class="bi bi-trash3"></i>
+                                </a>
+                            </td>
+                        </tr>
+                        <tr th:if="${#lists.isEmpty(problems)}">
+                            <td colspan="6" class="text-center py-5 text-secondary">No problems solved yet. Time to start grinding!</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </main>
+</body>
+</html>

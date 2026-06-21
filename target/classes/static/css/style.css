@@ -1,0 +1,166 @@
+:root {
+    /* Color Palette - Dark Obsidian Theme */
+    --bg-dark: #0d1117;
+    --sidebar-bg: #161b22;
+    --card-bg: #1c2128;
+    --border-color: #30363d;
+    --text-primary: #f0f6fc;
+    --text-secondary: #8b949e;
+    
+    --primary: #58a6ff;
+    --primary-glow: rgba(88, 166, 255, 0.1);
+    
+    --success: #3fb950;
+    --warning: #d29922;
+    --danger: #f85149;
+    
+    --easy: #00b8a3;
+    --medium: #ffc01e;
+    --hard: #ef4743;
+    
+    --sidebar-width: 260px;
+}
+
+body {
+    background-color: var(--bg-dark);
+    color: var(--text-primary);
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    margin: 0;
+    overflow-x: hidden;
+}
+
+/* Sidebar Styling */
+.sidebar {
+    width: var(--sidebar-width);
+    height: 100vh;
+    background-color: var(--sidebar-bg);
+    border-right: 1px solid var(--border-color);
+    position: fixed;
+    left: 0;
+    top: 0;
+    padding: 1.5rem;
+    z-index: 1000;
+}
+
+.sidebar-brand {
+    font-size: 1.5rem;
+    font-weight: 800;
+    color: var(--primary);
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    margin-bottom: 2.5rem;
+}
+
+.nav-menu {
+    list-style: none;
+    padding: 0;
+}
+
+.nav-item {
+    margin-bottom: 0.5rem;
+}
+
+.nav-link {
+    color: var(--text-secondary);
+    text-decoration: none;
+    padding: 0.75rem 1rem;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    transition: all 0.2s ease;
+}
+
+.nav-link:hover, .nav-link.active {
+    background-color: var(--primary-glow);
+    color: var(--primary);
+}
+
+/* Main Content Area */
+.main-content {
+    margin-left: var(--sidebar-width);
+    padding: 2rem 3rem;
+    min-height: 100vh;
+}
+
+/* Professional Cards */
+.glass-card {
+    background-color: var(--card-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    padding: 1.5rem;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+}
+
+.stat-value {
+    font-size: 2rem;
+    font-weight: 700;
+    margin: 0.5rem 0;
+}
+
+/* Progress Bars */
+.progress-container {
+    background-color: var(--border-color);
+    height: 8px;
+    border-radius: 10px;
+    margin: 1rem 0;
+    overflow: hidden;
+}
+
+.progress-bar {
+    background: linear-gradient(90deg, var(--primary), var(--secondary-color));
+    height: 100%;
+}
+
+/* Difficulty Badges */
+.badge-dsa {
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-weight: 600;
+    font-size: 0.75rem;
+}
+
+.badge-easy { background-color: rgba(0, 184, 163, 0.15); color: var(--easy); }
+.badge-medium { background-color: rgba(255, 192, 30, 0.15); color: var(--medium); }
+.badge-hard { background-color: rgba(239, 71, 67, 0.15); color: var(--hard); }
+
+/* Tables */
+.custom-table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0 8px;
+}
+
+.custom-table th {
+    color: var(--text-secondary);
+    font-weight: 500;
+    font-size: 0.875rem;
+    padding: 1rem;
+    text-align: left;
+}
+
+.custom-table tr td {
+    background-color: var(--card-bg);
+    padding: 1rem;
+    border-top: 1px solid var(--border-color);
+    border-bottom: 1px solid var(--border-color);
+}
+
+.custom-table tr td:first-child {
+    border-left: 1px solid var(--border-color);
+    border-top-left-radius: 8px;
+    border-bottom-left-radius: 8px;
+}
+
+.custom-table tr td:last-child {
+    border-right: 1px solid var(--border-color);
+    border-top-right-radius: 8px;
+    border-bottom-right-radius: 8px;
+}
+
+/* Responsive adjustments */
+@media (max-width: 992px) {
+    .sidebar { width: 80px; padding: 1rem 0.5rem; }
+    .sidebar-brand span, .nav-link span { display: none; }
+    .main-content { margin-left: 80px; }
+}

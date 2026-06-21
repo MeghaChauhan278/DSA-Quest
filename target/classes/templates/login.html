@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{layout :: head('Login - DSA Quest')}"></head>
+<body class="d-flex flex-column min-vh-100 bg-light">
+    <div th:replace="~{layout :: sidebar}"></div>
+    <main class="container py-5">
+        <div class="row justify-content-center">
+            <div class="col-md-5">
+                <div class="card p-4 shadow border-0">
+                    <h2 class="text-center mb-4">Welcome Back</h2>
+                    <div th:if="${param.error}" class="alert alert-danger px-3 py-2 small">Invalid username or password.</div>
+                    <form th:action="@{/login}" method="post">
+                        <div class="mb-3"><label class="form-label">Username</label><input type="text" name="username" class="form-control" required></div>
+                        <div class="mb-3"><label class="form-label">Password</label><input type="password" name="password" class="form-control" required></div>
+                        <button type="submit" class="btn btn-primary w-100">Sign In</button>
+                    </form>
+                    <p class="text-center mt-3 text-muted small">Don't have an account? <a href="/register">Register here</a></p>
+                </div>
+            </div>
+        </div>
+    </main>
+</body>
+</html>

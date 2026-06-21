@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{layout :: head('Dashboard - DSA Quest')}"></head>
+<body>
+    <div th:replace="~{layout :: sidebar}"></div>
+    
+    <main class="main-content">
+        <div class="d-flex justify-content-between align-items-center mb-5">
+            <div>
+                <h1 class="fw-bold mb-1">Dashboard</h1>
+                <p class="text-secondary mb-0">Welcome back, <span th:text="${user.username}" class="text-primary">Hero</span>!</p>
+            </div>
+            <a href="/problems/add" class="btn btn-primary px-4">
+                <i class="bi bi-plus-lg me-2"></i> Log Problem
+            </a>
+        </div>
+
+        <div class="row g-4 mb-5">
+            <!-- XP & Level Card -->
+            <div class="col-md-4">
+                <div class="glass-card h-100">
+                    <div class="d-flex justify-content-between mb-3">
+                        <span class="text-secondary fw-bold small">LEVEL <span th:text="${user.currentLevel}">1</span></span>
+                        <span class="text-primary fw-bold small"><span th:text="${user.totalXp}">0</span> XP</span>
+                    </div>
+                    <h5 class="fw-bold mb-3">Progression</h5>
+                    <div class="progress-container">
+                        <div class="progress-bar" th:style="'width: ' + (${user.totalXp} % 100) + '%'"></div>
+                    </div>
+                    <p class="text-secondary small">Next Level: <span th:text="100 - (${user.totalXp} % 100)">0</span> XP to go</p>
+                </div>
+            </div>
+            
+            <!-- Streak Card -->
+            <div class="col-md-4">
+                <div class="glass-card h-100 d-flex flex-column justify-content-center text-center">
+                    <div class="display-5 mb-2">🔥</div>
+                    <div class="stat-value" th:text="${user.currentStreak}">0</div>
+                    <div class="text-secondary small fw-bold">CURRENT STREAK</div>
+                    <hr class="border-secondary opacity-25 w-50 mx-auto">
+                    <div class="text-secondary small">Longest: <span th:text="${user.longestStreak}">0</span></div>
+                </div>
+            </div>
+            
+            <!-- Solved Count Card -->
+            <div class="col-md-4">
+                <div class="glass-card h-100">
+                    <div class="stat-value mb-1" th:text="${user.totalProblemsSolved}">0</div>
+                    <div class="text-secondary small fw-bold mb-4">TOTAL SOLVED</div>
+                    
+                    <div class="d-flex justify-content-between mb-2">
+                        <span class="small text-success">Easy</span>
+                        <span class="small fw-bold" th:text="${easyCount}">0</span>
+                    </div>
+                    <div class="progress-container mb-3" style="height: 4px;">
+                        <div class="progress-bar bg-success" th:style="'width: ' + (${user.totalProblemsSolved > 0 ? (easyCount*100/user.totalProblemsSolved) : 0}) + '%'"></div>
+                    </div>
+                    
+                    <div class="d-flex justify-content-between mb-2">
+                        <span class="small text-warning">Medium</span>
+                        <span class="small fw-bold" th:text="${mediumCount}">0</span>
+                    </div>
+                    <div class="progress-container mb-3" style="height: 4px;">
+                        <div class="progress-bar bg-warning" th:style="'width: ' + (${user.totalProblemsSolved > 0 ? (mediumCount*100/user.totalProblemsSolved) : 0}) + '%'"></div>
+                    </div>
+                    
+                    <div class="d-flex justify-content-between mb-2">
+                        <span class="small text-danger">Hard</span>
+                        <span class="small fw-bold" th:text="${hardCount}">0</span>
+                    </div>
+                    <div class="progress-container" style="height: 4px;">
+                        <div class="progress-bar bg-danger" th:style="'width: ' + (${user.totalProblemsSolved > 0 ? (hardCount*100/user.totalProblemsSolved) : 0}) + '%'"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="glass-card">
+            <h5 class="fw-bold mb-4">Recent Activity</h5>
+            <div class="table-responsive">
+                <table class="custom-table">
+                    <thead>
+                        <tr>
+                            <th>PROBLEM</th>
+                            <th>DIFFICULTY</th>
+                            <th>TOPIC</th>
+                            <th>PLATFORM</th>
+                            <th>DATE</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:each="p : ${recentProblems}">
+                            <td class="fw-bold" th:text="${p.title}">Two Sum</td>
+                            <td>
+                                <span class="badge-dsa" 
+                                      th:classappend="${p.difficulty == T(com.dsaquest.entity.Difficulty).Easy ? 'badge-easy' : (p.difficulty == T(com.dsaquest.entity.Difficulty).Hard ? 'badge-hard' : 'badge-medium')}" 
+                                      th:text="${p.difficulty}">Easy</span>
+                            </td>
+                            <td th:text="${p.topic}">Arrays</td>
+                            <td class="text-secondary" th:text="${p.platform}">LeetCode</td>
+                            <td class="text-secondary" th:text="${#temporals.format(p.solvedDate, 'MMM dd, yyyy')}">Date</td>
+                        </tr>
+                        <tr th:if="${#lists.isEmpty(recentProblems)}">
+                            <td colspan="5" class="text-center py-5 text-secondary">No recent activity detected.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="text-center mt-3">
+                <a href="/problems" class="btn btn-link text-primary text-decoration-none small fw-bold">View History <i class="bi bi-chevron-right ms-1"></i></a>
+            </div>
+        </div>
+    </main>
+</body>
+</html>

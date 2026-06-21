@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{layout :: head('DSA Quest - Home')}"></head>
+<body class="d-flex flex-column min-vh-100">
+    <div th:replace="~{layout :: sidebar}"></div>
+    <main class="container py-5 text-center">
+        <h1 class="display-4 fw-bold text-primary mb-3">Level Up Your DSA</h1>
+        <p class="lead mb-5">Track your progress, earn XP, and conquer the leaderboard.</p>
+        <div class="card p-5 shadow-sm border-0 bg-white mx-auto" style="max-width: 600px;">
+            <h3>Ready to start?</h3>
+            <div class="mt-4">
+                <a href="/register" class="btn btn-primary btn-lg px-5 me-2">Join Now</a>
+                <a href="/login" class="btn btn-outline-primary btn-lg px-5">Sign In</a>
+            </div>
+        </div>
+    </main>
+</body>
+</html>

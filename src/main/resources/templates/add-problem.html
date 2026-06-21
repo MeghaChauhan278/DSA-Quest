@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{layout :: head('Log Problem - DSA Quest')}"></head>
+<body>
+    <div th:replace="~{layout :: sidebar}"></div>
+    
+    <main class="main-content">
+        <div class="row justify-content-center">
+            <div class="col-md-8 col-lg-6">
+                <div class="d-flex align-items-center mb-4">
+                    <a href="/dashboard" class="btn btn-link text-secondary me-3"><i class="bi bi-chevron-left"></i></a>
+                    <h2 class="fw-bold mb-0">New Submission</h2>
+                </div>
+
+                <div class="glass-card">
+                    <form th:action="@{/problems/add}" th:object="${problem}" method="post">
+                        <div class="mb-4">
+                            <label class="form-label text-secondary small fw-bold">PROBLEM TITLE</label>
+                            <input type="text" th:field="*{title}" class="form-control bg-dark border-secondary text-white" placeholder="e.g. Spiral Matrix" required>
+                        </div>
+                        
+                        <div class="row mb-4">
+                            <div class="col-md-6">
+                                <label class="form-label text-secondary small fw-bold">DIFFICULTY</label>
+                                <select th:field="*{difficulty}" class="form-select bg-dark border-secondary text-white" required>
+                                    <option th:each="diff : ${difficulties}" th:value="${diff}" th:text="${diff}"></option>
+                                </select>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label text-secondary small fw-bold">PLATFORM</label>
+                                <input type="text" th:field="*{platform}" class="form-control bg-dark border-secondary text-white" placeholder="e.g. LeetCode">
+                            </div>
+                        </div>
+
+                        <div class="row mb-4">
+                            <div class="col-md-6">
+                                <label class="form-label text-secondary small fw-bold">TOPIC</label>
+                                <input type="text" th:field="*{topic}" class="form-control bg-dark border-secondary text-white" placeholder="e.g. Matrix, DFS">
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label text-secondary small fw-bold">DATE SOLVED</label>
+                                <input type="date" th:field="*{solvedDate}" class="form-control bg-dark border-secondary text-white" required>
+                            </div>
+                        </div>
+
+                        <div class="mb-4">
+                            <label class="form-label text-secondary small fw-bold">NOTES</label>
+                            <textarea th:field="*{notes}" class="form-control bg-dark border-secondary text-white" rows="4" placeholder="Any key insights or solution complexity..."></textarea>
+                        </div>
+
+                        <div class="d-grid mt-5">
+                            <button type="submit" class="btn btn-primary py-3 fw-bold">SUBMIT RECORD</button>
+                        </div>
+                        
+                        <!-- Problem Link Hidden but kept in object if needed by backend -->
+                        <input type="hidden" th:field="*{problemLink}" value="">
+                    </form>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <style>
+        .form-control:focus, .form-select:focus {
+            background-color: var(--sidebar-bg);
+            border-color: var(--primary);
+            box-shadow: 0 0 0 0.25rem var(--primary-glow);
+            color: white;
+        }
+    </style>
+</body>
+</html>

@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{layout :: head('Leaderboard - DSA Quest')}"></head>
+<body>
+    <div th:replace="~{layout :: sidebar}"></div>
+    
+    <main class="main-content">
+        <h1 class="fw-bold mb-5">Global Leaderboard</h1>
+
+        <div class="glass-card">
+            <div class="table-responsive">
+                <table class="custom-table">
+                    <thead>
+                        <tr>
+                            <th class="ps-4">RANK</th>
+                            <th>USER</th>
+                            <th>TOTAL XP</th>
+                            <th>SOLVED</th>
+                            <th>CURR. LEVEL</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:each="u, iter : ${users}">
+                            <td class="ps-4">
+                                <span th:if="${iter.count == 1}" class="fs-4">🥇</span>
+                                <span th:if="${iter.count == 2}" class="fs-4">🥈</span>
+                                <span th:if="${iter.count == 3}" class="fs-4">🥉</span>
+                                <span th:if="${iter.count > 3}" class="fw-bold text-secondary" th:text="${iter.count}">4</span>
+                            </td>
+                            <td>
+                                <div class="d-flex align-items-center">
+                                    <img th:src="'https://ui-avatars.com/api/?name=' + ${u.username} + '&size=32&background=58a6ff&color=fff'" class="rounded-circle me-3">
+                                    <span class="fw-bold" th:text="${u.username}">Username</span>
+                                </div>
+                            </td>
+                            <td class="fw-bold text-primary" th:text="${u.totalXp}">0</td>
+                            <td th:text="${u.totalProblemsSolved}">0</td>
+                            <td>
+                                <span class="badge-dsa bg-primary bg-opacity-10 text-primary" th:text="'LEVEL ' + ${u.currentLevel}">Level 1</span>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </main>
+</body>
+</html>
