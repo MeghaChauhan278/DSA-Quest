@@ -1,6 +1,6 @@
 # DSA Quest - Gamified DSA Tracker Platform
 
-DSA Quest is a production-ready, full-stack web application designed to help developers track their Data Structures and Algorithms (DSA) progress. Inspired by the gamification mechanics of platforms like LeetCode and Duolingo, it features XP rewards, level progression, streaks, achievements, and a global leaderboard to keep users motivated and consistent.
+DSA Quest is a full-stack web application designed to help developers track their Data Structures and Algorithms (DSA) progress through gamification, achievements, streaks, and progress tracking. Inspired by the gamification mechanics of platforms like LeetCode and Duolingo, it features XP rewards, level progression, streaks, achievements, and a global leaderboard to keep users motivated and consistent.
 
 ---
 
@@ -15,6 +15,10 @@ DSA Quest is a production-ready, full-stack web application designed to help dev
 - **Consistency Tracking**: Daily streak counter with longest streak history.
 - **Global Leaderboard**: Compete with other users based on total XP and problem count.
 - **Responsive UI**: Clean, modern interface built with Bootstrap 5.
+- **Secure Authentication**:
+  - BCrypt password hashing
+  - Session-based authentication
+  - Form validation and duplicate account prevention
 
 ---
 
@@ -23,7 +27,7 @@ DSA Quest is a production-ready, full-stack web application designed to help dev
 - **Backend**: Java 21, Spring Boot 3.x, Spring MVC
 - **Data Layer**: Spring Data JPA, Hibernate, MySQL 8.x
 - **Frontend**: Thymeleaf, Bootstrap 5, Custom CSS
-- **Tools**: Maven, Lombok, IntelliJ IDEA
+- **Tools**: Maven, IntelliJ IDEA, Git, GitHub
 
 ---
 
@@ -152,13 +156,43 @@ spring.datasource.password=YOUR_PASSWORD
 
 ---
 
+## 📌 Current Status
+
+### Version 1.0 Completed
+
+Implemented Features:
+- User Authentication (BCrypt)
+- Problem Tracking
+- XP & Level System
+- Achievement System
+- Daily Streak Tracking
+- Leaderboard
+- Dashboard Analytics
+- MySQL Persistence
+
+Currently Developing:
+- Multi-Platform Tracking
+- Topic-wise Progress Analytics
+- Blind 75 Tracker
+- Striver A2Z Tracker
+
+---
+
 ## 🔮 Future Enhancements
-- [ ] Integration with LeetCode/GFG APIs for automatic syncing.
-- [ ] Streak Freeze mechanism.
-- [ ] Topic-wise analytics charts using Chart.js.
-- [ ] Weekly challenges and community events.
+🚀 DSA Quest 2.0 Roadmap
+
+- Multi-Platform DSA Tracking
+- Topic-wise Progress Analytics
+- Weak Topic Detection
+- Blind 75 Tracker
+- Striver A2Z Tracker
+- Revision Scheduler
+- AI Learning Coach
 
 ---
 
 ## 👨‍💻 Author
-**DSA Quest Team** - Building tools for consistent learning.
+
+Megha Chauhan
+
+GitHub: [MeghaChauhan278](https://github.com/MeghaChauhan278)
