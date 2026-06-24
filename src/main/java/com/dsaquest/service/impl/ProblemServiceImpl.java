@@ -31,7 +31,7 @@ public class ProblemServiceImpl implements ProblemService {
         user.setTotalXp(user.getTotalXp() + xp);
         user.setTotalProblemsSolved(user.getTotalProblemsSolved() + 1);
         levelService.updateLevel(user);
-        streakService.updateStreak(user, problem.getSolvedDate());
+        streakService.updateStreak(user);
         achievementService.checkAndAwardAchievements(user);
         userService.saveUser(user);
         return savedProblem;
@@ -51,7 +51,23 @@ public class ProblemServiceImpl implements ProblemService {
     }
 
     @Override
-    public void deleteProblem(Long problemId) {
-        problemRepository.deleteById(problemId);
+    @Transactional
+    public void deleteProblem(Long problemId, User user) {
+        SolvedProblem problem = problemRepository.findById(problemId)
+                .orElseThrow(() -> new RuntimeException("Problem not found"));
+        if (!problem.getUser().getId().equals(user.getId())) {
+            throw new RuntimeException("Unauthorized to delete this problem");
+        }
+
+        int xp = problem.getXpEarned() != null ? problem.getXpEarned() : 0;
+        user.setTotalXp(Math.max(0, user.getTotalXp() - xp));
+        user.setTotalProblemsSolved(Math.max(0, user.getTotalProblemsSolved() - 1));
+        
+        levelService.updateLevel(user);
+        
+        problemRepository.delete(problem);
+        
+        streakService.updateStreak(user);
+        userService.saveUser(user);
     }
 }

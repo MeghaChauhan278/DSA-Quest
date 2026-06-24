@@ -4,6 +4,7 @@ import com.dsaquest.entity.Difficulty;
 import com.dsaquest.entity.SolvedProblem;
 import com.dsaquest.entity.User;
 import com.dsaquest.service.ProblemService;
+import com.dsaquest.service.StreakService;
 import com.dsaquest.service.UserService;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
@@ -18,6 +19,7 @@ public class DashboardController {
 
     private final UserService userService;
     private final ProblemService problemService;
+    private final StreakService streakService;
 
     @GetMapping("/dashboard")
     public String showDashboard(HttpSession session, Model model) {
@@ -25,6 +27,9 @@ public class DashboardController {
         if (user == null) return "redirect:/login";
 
         User currentUser = userService.getUserById(user.getId());
+        streakService.updateStreak(currentUser);
+        userService.saveUser(currentUser);
+        
         List<SolvedProblem> recentProblems = problemService.getUserProblems(currentUser);
         
         long easyCount = recentProblems.stream().filter(p -> p.getDifficulty() == Difficulty.Easy).count();

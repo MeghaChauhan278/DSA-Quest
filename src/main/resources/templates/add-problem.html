@@ -16,15 +16,17 @@
                     <form th:action="@{/problems/add}" th:object="${problem}" method="post">
                         <div class="mb-4">
                             <label class="form-label text-secondary small fw-bold">PROBLEM TITLE</label>
-                            <input type="text" th:field="*{title}" class="form-control bg-dark border-secondary text-white" placeholder="e.g. Spiral Matrix" required>
+                            <input type="text" th:field="*{title}" class="form-control bg-dark border-secondary text-white" th:classappend="${#fields.hasErrors('title')} ? 'is-invalid' : ''" placeholder="e.g. Spiral Matrix" required>
+                            <div class="invalid-feedback text-danger small mt-1" th:if="${#fields.hasErrors('title')}" th:errors="*{title}"></div>
                         </div>
                         
                         <div class="row mb-4">
                             <div class="col-md-6">
                                 <label class="form-label text-secondary small fw-bold">DIFFICULTY</label>
-                                <select th:field="*{difficulty}" class="form-select bg-dark border-secondary text-white" required>
+                                <select th:field="*{difficulty}" class="form-select bg-dark border-secondary text-white" th:classappend="${#fields.hasErrors('difficulty')} ? 'is-invalid' : ''" required>
                                     <option th:each="diff : ${difficulties}" th:value="${diff}" th:text="${diff}"></option>
                                 </select>
+                                <div class="invalid-feedback text-danger small mt-1" th:if="${#fields.hasErrors('difficulty')}" th:errors="*{difficulty}"></div>
                             </div>
                             <div class="col-md-6">
                                 <label class="form-label text-secondary small fw-bold">PLATFORM</label>
@@ -39,7 +41,8 @@
                             </div>
                             <div class="col-md-6">
                                 <label class="form-label text-secondary small fw-bold">DATE SOLVED</label>
-                                <input type="date" th:field="*{solvedDate}" class="form-control bg-dark border-secondary text-white" required>
+                                <input type="date" th:field="*{solvedDate}" class="form-control bg-dark border-secondary text-white" th:classappend="${#fields.hasErrors('solvedDate')} ? 'is-invalid' : ''" required>
+                                <div class="invalid-feedback text-danger small mt-1" th:if="${#fields.hasErrors('solvedDate')}" th:errors="*{solvedDate}"></div>
                             </div>
                         </div>
 

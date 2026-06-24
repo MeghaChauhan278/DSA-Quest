@@ -65,13 +65,17 @@ CREATE TABLE user_achievements (
 -- Sample Achievements
 INSERT INTO achievements (name, description, xp_reward) VALUES 
 ('First Step', 'Solve your first DSA problem.', 10),
+('Decathlon', 'Solve 10 DSA problems.', 50),
+('Half Century', 'Solve 50 DSA problems.', 150),
+('Centurion', 'Solve 100 DSA problems.', 300),
 ('Consistency King', 'Maintain a 7-day streak.', 100),
+('Monthly Master', 'Maintain a 30-day streak.', 500),
 ('Hardcore Solver', 'Solve 10 Hard difficulty problems.', 500),
 ('Topic Master: Arrays', 'Solve 15 problems related to Arrays.', 200);
 
 -- Sample User (Password is 'password' - placeholder)
 INSERT INTO users (username, email, password, total_xp, current_level, total_problems_solved) VALUES 
-('dsa_warrior', 'warrior@example.com', 'password', 50, 1, 3);
+('dsa_warrior', 'warrior@example.com', '$2a$10$8.Kclm3spQD18.6QGZpCOu3gZ.iQ3d3cXZJz2pGZJb4oOq6m.wRie', 50, 1, 3);
 
 -- Sample Solved Problems for 'dsa_warrior'
 INSERT INTO solved_problems (user_id, title, problem_link, difficulty, topic, platform, solved_date, xp_earned, notes) VALUES 

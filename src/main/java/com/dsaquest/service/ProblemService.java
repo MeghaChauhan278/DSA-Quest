@@ -7,5 +7,5 @@ import java.util.List;
 public interface ProblemService {
     SolvedProblem addSolvedProblem(SolvedProblem problem, User user);
     List<SolvedProblem> getUserProblems(User user);
-    void deleteProblem(Long problemId);
+    void deleteProblem(Long problemId, User user);
 }

@@ -3,9 +3,12 @@ package com.dsaquest.controller;
 import com.dsaquest.entity.User;
 import com.dsaquest.service.UserService;
 import jakarta.servlet.http.HttpSession;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 @Controller
@@ -13,6 +16,7 @@ import org.springframework.web.bind.annotation.*;
 public class UserController {
 
     private final UserService userService;
+    private final BCryptPasswordEncoder passwordEncoder;
 
     @GetMapping("/register")
     public String showRegistrationForm(Model model) {
@@ -21,7 +25,23 @@ public class UserController {
     }
 
     @PostMapping("/register")
-    public String registerUser(@ModelAttribute("user") User user) {
+    public String registerUser(@Valid @ModelAttribute("user") User user, BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
+            return "register";
+        }
+
+        if (userService.existsByUsername(user.getUsername())) {
+            bindingResult.rejectValue("username", "error.user", "Username is already taken");
+        }
+
+        if (userService.existsByEmail(user.getEmail())) {
+            bindingResult.rejectValue("email", "error.user", "Email is already registered");
+        }
+
+        if (bindingResult.hasErrors()) {
+            return "register";
+        }
+
         userService.registerUser(user);
         return "redirect:/login";
     }
@@ -32,11 +52,15 @@ public class UserController {
     }
 
     @PostMapping("/login")
-    public String login(@RequestParam String username, HttpSession session) {
+    public String login(@RequestParam String username, @RequestParam String password, HttpSession session) {
         try {
             User user = userService.getUserByUsername(username);
-            session.setAttribute("user", user);
-            return "redirect:/dashboard";
+            if (passwordEncoder.matches(password, user.getPassword())) {
+                session.setAttribute("user", user);
+                return "redirect:/dashboard";
+            } else {
+                return "redirect:/login?error";
+            }
         } catch (Exception e) {
             return "redirect:/login?error";
         }

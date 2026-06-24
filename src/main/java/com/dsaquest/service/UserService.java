@@ -9,4 +9,6 @@ public interface UserService {
     User getUserByUsername(String username);
     List<User> getAllUsersSortedByXp();
     void saveUser(User user);
+    boolean existsByUsername(String username);
+    boolean existsByEmail(String email);
 }
